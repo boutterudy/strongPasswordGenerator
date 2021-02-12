@@ -1,0 +1,88 @@
+/* FONTS */
+/* Palanquin - Bold */
+@font-face {
+  font-family: "Palanquin";
+  src: url("/fonts/Palanquin/Palanquin-Bold.ttf");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* Palanquin - SemiBold */
+@font-face {
+  font-family: "Palanquin";
+  src: url("/fonts/Palanquin/Palanquin-SemiBold.ttf");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+/* Palanquin - Medium */
+@font-face {
+  font-family: "Palanquin";
+  src: url("/fonts/Palanquin/Palanquin-Medium.ttf");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+/* Palanquin - Regular */
+@font-face {
+  font-family: "Palanquin";
+  src: url("/fonts/Palanquin/Palanquin-Regular.ttf");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Palanquin - Light */
+@font-face {
+  font-family: "Palanquin";
+  src: url("/fonts/Palanquin/Palanquin-Light.ttf");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+/* Palanquin - ExtraLight */
+@font-face {
+  font-family: "Palanquin";
+  src: url("/fonts/Palanquin/Palanquin-ExtraLight.ttf");
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+}
+
+/* Palanquin - Thin */
+@font-face {
+  font-family: "Palanquin";
+  src: url("/fonts/Palanquin/Palanquin-Thin.ttf");
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+}
+
+/* Global CSS */
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Palanquin', sans-serif;
+  font-size: 18px;
+  background-color: #151719;
+  color: #ECEDED;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: #23FFDA;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
