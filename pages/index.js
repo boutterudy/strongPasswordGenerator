@@ -7,56 +7,73 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      generatedPassword: ""
+      generatedPassword: "",
+      length: 8,
+      symbols: false,
+      numbers: true,
+      lowercase: true,
+      uppercase: true,
     }
 
     this.generatePassword = this.generatePassword.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
   }
 
   generatePassword() {
     var password = "";
+    var chars = "";
 
-    // Uppercase
-    var up = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    var upRegex = new RegExp('^(?=.*[A-Z]).*$');
+    // Symbols
+    var symbols = "!#$%&()*+/\\<>?@";
+
+    // Numbers
+    var num = "0123456789";
+    var numRegex = new RegExp('^(?=.*[0-9]).*$');
 
     // Lowercase
     var low = "abcdefghijklmnopqrstuvwxyz";
     var lowRegex = new RegExp('^(?=.*[a-z]).*$');
 
-    // Number
-    var num = "0123456789";
-    var numRegex = new RegExp('^(?=.*[0-9]).*$');
+    // Uppercase
+    var up = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var upRegex = new RegExp('^(?=.*[A-Z]).*$');
 
-    // Random Characters
-    var random = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&é()!?=+)-";
+    // List of available chars - add symbols
+    if (this.state.symbols) {
+      chars += symbols;
+    }
+
+    // List of available chars - add numbers
+    if (this.state.numbers) {
+      chars += num;
+    }
+
+    // List of available chars - add lowercase
+    if (this.state.lowercase) {
+      chars += low;
+    }
+
+    // List of available chars - add uppercase
+    if (this.state.uppercase) {
+      chars += up;
+    }
 
     // Generation
     do {
-      let newChar;
       let charPos = Math.floor(Math.random() * password.length) + 0;
-
-      // If doesn't contain uppercase, add it
-      if (!upRegex.test(password)) {
-        newChar = up.charAt(Math.floor(Math.random() * up.length));
-        password = password.slice(0, charPos) + newChar + password.slice(charPos, password.length);
-
-      // If doesn't contain lowercase, add it
-      } else if (!lowRegex.test(password)) {
-        newChar = low.charAt(Math.floor(Math.random() * low.length));
-        password = password.slice(0, charPos) + newChar + password.slice(charPos, password.length);
-
-      // If doesn't contain number, add it
-      } else if (!numRegex.test(password)) {
-        newChar = num.charAt(Math.floor(Math.random() * num.length));
-        password = password.slice(0, charPos) + newChar + password.slice(charPos, password.length);
-
-      // Else add random char
-      } else {
-        newChar = random.charAt(Math.floor(Math.random() * random.length));
-        password = password.slice(0, charPos) + newChar + password.slice(charPos, password.length);
-      }
-    } while (password.length < 8);
+      let newChar = chars.charAt(Math.floor(Math.random() * chars.length));
+      password = password.slice(0, charPos) + newChar + password.slice(charPos, password.length);
+    } while (password.length < this.state.length);
 
     // Return password
     this.setState(state => ({
@@ -71,6 +88,21 @@ export default class Home extends React.Component {
           <title>Strong password generator</title>
         </Head>
         <h1>Strong Password Generator</h1>
+        <label>Lenght : </label>
+        <input name="length" type="number" value={this.state.length} onChange={this.handleInputChange} />
+        <br />
+        <label>Symbols : </label>
+        <input name="symbols" type="checkbox" checked={this.state.symbols} onChange={this.handleInputChange} />
+        <br />
+        <label>Numbers : </label>
+        <input name="numbers" type="checkbox" checked={this.state.numbers} onChange={this.handleInputChange} />
+        <br />
+        <label>Lowercase : </label>
+        <input name="lowercase" type="checkbox" checked={this.state.lowercase} onChange={this.handleInputChange} />
+        <br />
+        <label>Uppercase : </label>
+        <input name="uppercase" type="checkbox" checked={this.state.uppercase} onChange={this.handleInputChange} />
+        <br />
         <MainButton onClick={this.generatePassword} content="Generate a strong password"/>
         <p>{this.state.generatedPassword}</p>
       </Layout>
