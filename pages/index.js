@@ -68,17 +68,24 @@ export default class Home extends React.Component {
       chars += up;
     }
 
-    // Generation
-    do {
-      let charPos = Math.floor(Math.random() * password.length) + 0;
-      let newChar = chars.charAt(Math.floor(Math.random() * chars.length));
-      password = password.slice(0, charPos) + newChar + password.slice(charPos, password.length);
-    } while (password.length < this.state.length);
+    // Check error
+    if (chars.length == 0) {
+      this.setState(state => ({
+        generatedPassword: "Please select one option"
+      }));
+    // If no error, generate password
+    } else {
+      do {
+        let charPos = Math.floor(Math.random() * password.length) + 0;
+        let newChar = chars.charAt(Math.floor(Math.random() * chars.length));
+        password = password.slice(0, charPos) + newChar + password.slice(charPos, password.length);
+      } while (password.length < this.state.length);
 
-    // Return password
-    this.setState(state => ({
-      generatedPassword: password
-    }));
+      // Return password
+      this.setState(state => ({
+        generatedPassword: password
+      }));
+    }
   }
 
   render() {
@@ -89,7 +96,7 @@ export default class Home extends React.Component {
         </Head>
         <h1>Strong Password Generator</h1>
         <label>Lenght : </label>
-        <input name="length" type="number" value={this.state.length} onChange={this.handleInputChange} />
+        <input name="length" type="number" min="1" value={this.state.length} onChange={this.handleInputChange} />
         <br />
         <label>Symbols : </label>
         <input name="symbols" type="checkbox" checked={this.state.symbols} onChange={this.handleInputChange} />
